@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:17
+    container_name: postgres17
+    restart: always
+    environment:
+      POSTGRES_USER: axon
+      POSTGRES_PASSWORD: RLLY_QC3Mq$-Rqu
+      POSTGRES_DB: axondb
+    volumes:
+      - ./pgdata:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: aminhaiqal15@gmail.com
+      PGADMIN_DEFAULT_PASSWORD: HawbAndFj6-amin
+    volumes:
+      - ./pgadmin-data:/var/lib/pgadmin
+    ports:
+      - "5050:80"
