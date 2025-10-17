@@ -21,6 +21,7 @@ model User {
   passwordHash  String
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @updatedAt
+
   workflows     Workflow[]
   executions    Execution[]
 }
@@ -30,11 +31,14 @@ model Workflow {
   name          String
   description   String?
   isActive      Boolean      @default(true)
+
   user          User         @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId        String
+
   nodes         Node[]
   triggers      Trigger[]
   executions    Execution[]
+
   createdAt     DateTime     @default(now())
   updatedAt     DateTime     @updatedAt
 }
@@ -43,17 +47,21 @@ model Node {
   id          String    @id @default(cuid())
   workflow    Workflow  @relation(fields: [workflowId], references: [id], onDelete: Cascade)
   workflowId  String
+
   type        String    // e.g. "http_request", "llm", "delay", "email"
   config      Json      // configuration (dynamic settings)
+  nextNodeId  String?   // next node in flow
+  
+  label       String?
   positionX   Float     @default(0)
   positionY   Float     @default(0)
-  nextNodeId  String?   // next node in flow
 }
 
 model Trigger {
   id          String    @id @default(cuid())
   workflow    Workflow  @relation(fields: [workflowId], references: [id], onDelete: Cascade)
   workflowId  String
+
   type        String    // e.g. "webhook", "schedule", "manual"
   config      Json      // trigger config (like cron time, or webhook URL)
   createdAt   DateTime  @default(now())
@@ -63,10 +71,13 @@ model Execution {
   id          String     @id @default(cuid())
   workflow    Workflow   @relation(fields: [workflowId], references: [id], onDelete: Cascade)
   workflowId  String
+
   user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId      String
+
   status      ExecutionStatus @default(PENDING)
   logs        Json?
+  result      Json?
   startedAt   DateTime   @default(now())
   finishedAt  DateTime?
 }
