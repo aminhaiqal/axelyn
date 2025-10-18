@@ -5,6 +5,7 @@ import { ComparisonSection } from "@/components/comparison-section"
 import { TimelineSection } from "@/components/timeline-section"
 import { WaitlistSection } from "@/components/waitlist-section"
 import { Footer } from "@/components/footer"
+import { NarrativeSection } from "@/components/narrative-section"
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
         <HeroSection />
         <FeaturesSection />
         <ComparisonSection />
+        <NarrativeSection />
         <TimelineSection />
         <WaitlistSection />
       </main>
