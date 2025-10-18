@@ -1,4 +1,3 @@
-// src/workflows/workflow.module.ts
 import { Module } from '@nestjs/common';
 import { WorkflowService } from './workflow.service';
 import { WorkflowController } from './workflow.controller';

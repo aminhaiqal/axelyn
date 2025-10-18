@@ -1,14 +1,33 @@
-import { Controller, Get, Post, Put, Delete, Param, Body, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, Patch, Delete } from '@nestjs/common';
 import { NodeService } from './node.service';
-import { Prisma } from '../../../../@axon/generated/prisma';
+import { CreateNodeDto, UpdateNodeDto } from './dto';
 
 @Controller('nodes')
 export class NodeController {
-  constructor(private nodeService: NodeService) {}
+  constructor(private readonly nodeService: NodeService) {}
 
-  @Get() findAll(@Query('workflowId') workflowId?: string) { return this.nodeService.findAll(workflowId); }
-  @Get(':id') findOne(@Param('id') id: string) { return this.nodeService.findOne(id); }
-  @Post() create(@Body() data: Prisma.NodeCreateInput) { return this.nodeService.create(data); }
-  @Put(':id') update(@Param('id') id: string, @Body() data: Prisma.NodeUpdateInput) { return this.nodeService.update(id, data); }
-  @Delete(':id') remove(@Param('id') id: string) { return this.nodeService.remove(id); }
+  @Post()
+  create(@Body('workflowId') workflowId: string, @Body() dto: CreateNodeDto) {
+    return this.nodeService.create(workflowId, dto);
+  }
+
+  @Get(':workflowId')
+  findAll(@Param('workflowId') workflowId: string) {
+    return this.nodeService.findAll(workflowId);
+  }
+
+  @Get('node/:id')
+  findOne(@Param('id') id: string) {
+    return this.nodeService.findOne(id);
+  }
+
+  @Patch(':id')
+  update(@Param('id') id: string, @Body() dto: UpdateNodeDto) {
+    return this.nodeService.update(id, dto);
+  }
+
+  @Delete(':id')
+  remove(@Param('id') id: string) {
+    return this.nodeService.remove(id);
+  }
 }
