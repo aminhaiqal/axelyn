@@ -45,6 +45,9 @@ model Workflow {
 
 model Node {
   id          String    @id @default(cuid())
+  name          String
+  description   String?
+
   workflow    Workflow  @relation(fields: [workflowId], references: [id], onDelete: Cascade)
   workflowId  String
 
@@ -59,6 +62,9 @@ model Node {
 
 model Trigger {
   id          String    @id @default(cuid())
+  name          String
+  description   String?
+
   workflow    Workflow  @relation(fields: [workflowId], references: [id], onDelete: Cascade)
   workflowId  String
 
@@ -69,6 +75,9 @@ model Trigger {
 
 model Execution {
   id          String     @id @default(cuid())
+  name          String
+  description   String?
+  
   workflow    Workflow   @relation(fields: [workflowId], references: [id], onDelete: Cascade)
   workflowId  String
 
