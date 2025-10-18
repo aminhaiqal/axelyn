@@ -24,6 +24,7 @@ model User {
 
   workflows     Workflow[]
   executions    Execution[]
+  feedback      Feedback[]
 }
 
 model Workflow {
@@ -38,6 +39,10 @@ model Workflow {
   nodes         Node[]
   triggers      Trigger[]
   executions    Execution[]
+  learning      WorkflowLearning[]
+  version       WorkflowVersion[]
+  trainingEvent TrainingEvent[]
+  agentMemory   AgentMemory[]
 
   createdAt     DateTime     @default(now())
   updatedAt     DateTime     @updatedAt
@@ -89,6 +94,9 @@ model Execution {
   result      Json?
   startedAt   DateTime   @default(now())
   finishedAt  DateTime?
+
+  feedback    Feedback[]
+  llmCall     LLMCall[]
 }
 
 model LLMProvider {
@@ -109,8 +117,105 @@ model LLMModel {
   provider    LLMProvider @relation(fields: [providerId], references: [id], onDelete: Cascade)
   providerId  String
 
+  call        LLMCall[]
+
   createdAt   DateTime    @default(now())
   updatedAt   DateTime    @updatedAt
+}
+
+model LLMCall {
+  id            String     @id @default(cuid())
+
+  workflowId    String?
+  nodeId        String?
+
+  execution     Execution? @relation(fields: [executionId], references: [id], onDelete: Cascade)
+  executionId   String?
+  llmModel      LLMModel?  @relation(fields: [llmModelId], references: [id])
+  llmModelId    String?
+
+  role          String?    // e.g. "system", "user", "assistant"
+  prompt        String
+  response      String
+  tokensUsed    Int?
+  costUsd       Float?
+  durationMs    Int?
+  metadata      Json?
+  createdAt     DateTime   @default(now())
+}
+
+model Feedback {
+  id            String     @id @default(cuid())
+
+  execution     Execution  @relation(fields: [executionId], references: [id], onDelete: Cascade)
+  executionId   String
+
+  user          User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId        String
+
+  rating        Int?       // e.g. 1–5 rating or -1/0/1
+  isPositive    Boolean?   
+  comment       String?    // "Be more concise" or "Missed context"
+  metadata      Json?      // store structured info (prompt diffs, response deltas, etc.)
+  sourceType    String     @default("human")
+
+  workflowLearningId String? 
+  workflowLearning   WorkflowLearning? @relation(fields: [workflowLearningId], references: [id], onDelete: Cascade)
+  
+  createdAt     DateTime   @default(now())
+}
+
+model WorkflowLearning {
+  id            String    @id @default(cuid())
+  workflow      Workflow  @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+  workflowId    String
+
+  successRate   Float     @default(0.0)
+  lastImproved  DateTime?
+  totalFeedback Int       @default(0)
+  improvementNotes Json?  // internal audit of what changed
+
+  feedback      Feedback[]
+}
+
+model LearningMetric {
+  id             String    @id @default(cuid())
+  workflowId     String
+  metricName     String    // e.g. "response_quality", "latency", "error_rate"
+  metricValue    Float
+  recordedAt     DateTime  @default(now())
+}
+
+model WorkflowVersion {
+  id          String     @id @default(cuid())
+  workflow    Workflow   @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+  workflowId  String
+  version     Int
+  changes     Json
+  createdAt   DateTime   @default(now())
+}
+
+model TrainingEvent {
+  id          String    @id @default(cuid())
+  workflow    Workflow  @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+  workflowId  String
+  feedbackIds String[]  // which feedback entries triggered it
+  type        String    // e.g. "prompt_update", "model_selection"
+  result      Json?
+  createdAt   DateTime  @default(now())
+}
+
+model AgentMemory {
+  id          String     @id @default(cuid())
+  workflow    Workflow   @relation(fields: [workflowId], references: [id], onDelete: Cascade)
+  workflowId  String
+
+  key         String     // e.g. "last_prompt", "context_summary", "error_patterns"
+  value       Json
+  scope       String     @default("long_term") // "short_term" | "long_term"
+  expiresAt   DateTime?
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
 }
 
 enum ExecutionStatus {
