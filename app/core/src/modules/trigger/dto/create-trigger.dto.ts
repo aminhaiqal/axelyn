@@ -1,4 +1,4 @@
-import { IsString, IsOptional, IsObject } from 'class-validator';
+import { IsString, IsOptional } from 'class-validator';
 
 export class CreateTriggerDto {
   @IsString()
@@ -9,11 +9,7 @@ export class CreateTriggerDto {
   description?: string;
 
   @IsString()
-  type: string; // "webhook", "schedule", "manual"
+  type: string; // e.g., "webhook", "schedule", "manual"
 
-  @IsObject()
-  config: Record<string, any>; // JSON config for webhook, cron, etc.
-
-  @IsString()
-  workflowId: string; // ID of the workflow this trigger belongs to
+  config: any; // you can use Json type in DTO or add validation later
 }

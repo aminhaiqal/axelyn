@@ -1,27 +1,33 @@
-import { Body, Controller, Get, Post, Put, Delete, Param } from '@nestjs/common';
+import { Controller, Post, Get, Patch, Delete, Param, Body } from '@nestjs/common';
 import { TriggerService } from './trigger.service';
-import { CreateTriggerDto } from './dto/create-trigger.dto';
-import { UpdateTriggerDto } from './dto/update-trigger.dto';
+import { CreateTriggerDto, UpdateTriggerDto } from './dto';
 
 @Controller('triggers')
 export class TriggerController {
-  constructor(private readonly triggerService: TriggerService) {}
+  constructor(private triggerService: TriggerService) {}
 
-  @Get() findAll() { return this.triggerService.findAll(); }
+  @Post('workflow/:workflowId')
+  create(@Param('workflowId') workflowId: string, @Body() dto: CreateTriggerDto) {
+    return this.triggerService.create(workflowId, dto);
+  }
 
-  @Get(':id') findOne(@Param('id') id: string) {
+  @Get('workflow/:workflowId')
+  findAll(@Param('workflowId') workflowId: string) {
+    return this.triggerService.findAll(workflowId);
+  }
+
+  @Get(':id')
+  findOne(@Param('id') id: string) {
     return this.triggerService.findOne(id);
   }
 
-  @Post() create(@Body() data: CreateTriggerDto) {
-    return this.triggerService.create(data);
+  @Patch(':id')
+  update(@Param('id') id: string, @Body() dto: UpdateTriggerDto) {
+    return this.triggerService.update(id, dto);
   }
 
-  @Put(':id') update(@Param('id') id: string, @Body() data: UpdateTriggerDto) {
-    return this.triggerService.update(id, data);
-  }
-
-  @Delete(':id') remove(@Param('id') id: string) {
+  @Delete(':id')
+  remove(@Param('id') id: string) {
     return this.triggerService.remove(id);
   }
 }

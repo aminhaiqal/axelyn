@@ -1,4 +1,18 @@
-import { PartialType } from '@nestjs/mapped-types';
-import { CreateTriggerDto } from './create-trigger.dto';
+import { IsString, IsOptional } from 'class-validator';
 
-export class UpdateTriggerDto extends PartialType(CreateTriggerDto) {}
+export class UpdateTriggerDto {
+  @IsOptional()
+  @IsString()
+  name?: string;
+
+  @IsOptional()
+  @IsString()
+  description?: string;
+
+  @IsOptional()
+  @IsString()
+  type?: string;
+
+  @IsOptional()
+  config?: any;
+}
