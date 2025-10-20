@@ -1,458 +1,283 @@
-# AXON
-
-## AI Automation That Actually Learns
-
----
-
-## What is Axon?
-
-Axon is an AI automation platform that gets smarter with every run.
-
-Unlike traditional automation tools that execute the same workflow forever, Axon learns from your feedback and continuously improves its performance — turning static robots into adaptive AI assistants.
+# 🇲🇾 AXON
+### WhatsApp Automation That Learns — Built for Malaysian Businesses
 
 ---
 
-## The Problem We're Solving
+## 🧠 What is Axon?
 
-If you've used Zapier, Make, or n8n, you know the frustration:
+Axon is an **AI automation platform for Malaysian SMEs** that gets smarter with every conversation.
 
-- ❌ **Hours of manual setup** — Endless clicking through UI builders
-- ❌ **Static workflows** — Set once, runs the same way forever
-- ❌ **Constant maintenance** — When it breaks, YOU fix it manually
-- ❌ **No adaptation** — Can't learn your preferences or improve over time
-- ❌ **One-size-fits-all outputs** — Same response for every situation
+It connects to your **WhatsApp Business or Telegram**, handles customer messages automatically, and **learns your tone and style** from feedback — so your virtual assistant improves week by week.
 
-**You're not automating. You're babysitting robots.**
-
-Every automation tool today executes instructions. None of them learn.
+Under the hood, Axon is powered by a **learning agent builder** — a node-based engine that generates workflows from natural language and continuously evolves based on feedback.
 
 ---
 
-## How Axon Works
+## 🧩 The Problem We’re Solving
 
-### 1. Describe What You Want (Natural Language)
+If you run a Malaysian business, you’re answering the same WhatsApp questions daily:
 
-No more clicking through UI builders. Just tell Axon what you want in plain English:
+> “Buka jam berapa ya?”  
+> “Masih ada stok tak?”  
+> “Macam mana nak order?”  
+> “Can I pay via FPX?”
 
-> *"When I get an email to support@mycompany.com, read it, search our FAQ for relevant answers, and draft a helpful reply in a friendly tone."*
+And while tools like ChatGPT, Zapier, or Make exist, they don’t fit how Malaysians actually work.
 
-### 2. Axon Builds It Automatically
+| The Issue | Why It Fails |
+|------------|--------------|
+| 🇬🇧 English-only | No BM or Manglish support |
+| 🧠 Too complex | Needs tech skill, confusing setup |
+| 💬 Static | Same replies every time |
+| 📵 No WhatsApp | Not where customers actually are |
+| 💳 No local payments | Stripe-only, USD-only |
 
-Our AI engine converts your description into a working automation in seconds:
-- Connects to your tools (Gmail, Slack, databases, etc.)
-- Generates the workflow logic
-- Activates it immediately
-
-No configuration. No manual setup. Just working automation.
-
-### 3. Rate Each Result
-
-After each automation runs, you see the output and give quick feedback:
-
-- 👍 **Good** — It worked perfectly
-- 👎 **Needs improvement** — Too formal, missed context, etc.
-- ✍️ **Add details** — "Be more casual" or "Always include pricing"
-
-### 4. Watch It Get Smarter
-
-Axon uses your feedback to continuously improve:
-
-- **Week 1:** 65% success rate — Some responses too formal, occasionally misses key info
-- **Week 2:** 78% success rate — Learning your tone, better context understanding  
-- **Week 3:** 91% success rate — Feels like a trained assistant who knows your style
-
-**All without you manually tweaking prompts or reconfiguring workflows.**
+We’re fixing that.
 
 ---
 
-## What Makes Axon Different
+## ⚙️ How Axon Works
 
-### vs. Traditional Automation (Zapier, Make, n8n)
-
-| Traditional Automation | Axon |
-|------------------------|------|
-| Hours of manual UI setup | Describe in plain English, instant automation |
-| Static workflows that never change | Learning system that improves continuously |
-| Same output every time | Adapts based on context and feedback |
-| You fix everything manually | Axon self-corrects and evolves |
-| Set once, runs forever unchanged | Gets 2-3x better in 2-3 weeks |
-
-### vs. AI Chatbots (ChatGPT, Claude)
-
-| AI Chatbots | Axon |
-|-------------|------|
-| One-off conversations | Automated, recurring workflows |
-| Manual copy-paste | Integrated with your tools |
-| No memory of what works | Learns from every interaction |
-| You prompt every time | Runs automatically in background |
-
-**Axon is the bridge:** The automation of Zapier + The intelligence of ChatGPT + The learning of a trained assistant.
+### 1. Connect WhatsApp (or Telegram)
+Use the **WhatsApp Business API** (via Twilio or MessageBird).  
+Axon instantly starts monitoring your business chat.
 
 ---
 
-## Core Features
+### 2. Pick a Template
+No setup headaches — just pick your automation:
 
-### 🧠 Learning Feedback Loop
-- Rate every automation result
-- System adjusts prompts, logic, and tone automatically
-- Visible improvement tracking (see success rates climb over time)
-- Version history (track how your automation evolved)
+- 🍽 **Cafe Auto-Responder** → Handles menu, hours, reservations  
+- 📦 **E-commerce Order Bot** → Tracks orders via Google Sheets  
+- 🏠 **Real Estate Assistant** → Manages property inquiries  
+- 📚 **Tuition Center Admin** → Schedules, fees, class info  
 
-### 🗣️ Natural Language Setup
-- Describe workflows in plain English
-- No clicking through UI builders
-- AI generates the automation for you
-- Modifications via conversation ("Make it more casual")
-
-### 📊 Performance Analytics
-- Real-time success rate tracking
-- Improvement graphs (Week 1: 60% → Week 3: 90%)
-- Detailed logs of what's working and what's not
-- A/B testing between automation versions
-
-### 🔄 Adaptive Intelligence
-- Context-aware responses (adjusts to different situations)
-- Learns your brand voice and preferences
-- Handles nuanced scenarios (not just mechanical repetition)
-- Self-correcting when patterns change
-
-### 🔗 Smart Integrations
-- Email (Gmail, Outlook)
-- Communication (Slack, Discord)
-- Knowledge bases (Notion, Confluence, Google Docs)
-- CRMs, databases, and custom APIs
-- *(More integrations added based on user feedback)*
+Setup takes **under 5 minutes**.
 
 ---
 
-## Who Is Axon For?
+### 3. Let Axon Handle Messages
+When a customer messages you:
 
-### ✅ Perfect For:
+> **Customer:** “Bro, what time you close ah?”  
+> **Axon:** “Hi! We close at 10pm today 😊”
 
-**Solo Founders & Small Business Owners**
-- Drowning in repetitive tasks (email, support, admin)
-- Need automation that adapts to different situations
-- Want to save 5-10 hours per week
-- Tech-savvy but not developers
-
-**Customer Support Teams**
-- Handling similar-but-different requests daily
-- Need responses with the right tone and context
-- Want to automate 70-80% of routine questions
-- Must maintain brand voice consistency
-
-**Operations & Marketing Teams**
-- Running repetitive campaigns that need personalization
-- Managing workflows across multiple tools
-- Need automation with judgment, not just mechanics
-- Want continuous improvement without manual work
-
-### ❌ Not Ideal For (Yet):
-
-- Enterprises needing complex governance (coming in future versions)
-- Teams requiring 1000+ pre-built integrations (we start focused, expand based on demand)
-- Purely mechanical tasks with zero variation (traditional tools work fine for this)
+Behind the scenes:
+1. Message → Intent detection  
+2. Search knowledge base (FAQ, Notion, Google Sheets, Docs)  
+3. Respond in **BM, English, or both**
 
 ---
 
-## Real-World Use Cases
+### 4. Teach It from WhatsApp
+After each response, you get a WhatsApp message:
 
-### Customer Support Email Responder
-**Before:** Support agent manually responds to 50 emails/day, many repetitive  
-**With Axon:**
-- Monitors support inbox 24/7
-- Searches knowledge base for relevant answers
-- Drafts personalized responses in brand voice
-- Learns from "good" vs "needs work" ratings
-- **Result:** 70% of emails handled automatically, 5 hours saved daily
+Was this reply good?
+👍 Perfect
+👎 Needs improvement
+✏️ I would say: [your version]
 
-### Content Research Assistant
-**Before:** Manually reading articles, taking notes, summarizing key points  
-**With Axon:**
-- Monitors RSS feeds or saved articles
-- Extracts key insights relevant to your focus areas
-- Summarizes in your preferred format
-- Learns what information you find valuable
-- **Result:** 3 hours of reading condensed into 20-minute review
 
-### Meeting Prep Automation
-**Before:** Scrambling to review emails/docs before each meeting  
-**With Axon:**
-- Monitors calendar for upcoming meetings
-- Pulls relevant emails, documents, and context
-- Generates meeting brief with key points
-- Learns what information you always need
-- **Result:** Show up prepared without pre-meeting panic
+Each node tracks:
+- **Intent** (what customer asked)  
+- **Action** (what to do)  
+- **Confidence** (how sure Axon is)  
+- **Feedback Score** (how users rated it)
 
-### Social Media Content Adapter
-**Before:** Manually rewriting blog posts for Twitter, LinkedIn, etc.  
-**With Axon:**
-- Monitors new blog posts
-- Adapts content for each platform's style
-- Posts drafts for your review
-- Learns your voice per platform
-- **Result:** 1 post becomes 5 platform-specific versions in minutes
+Over time, Axon automatically adjusts connections between nodes — learning which responses perform best.  
+That’s how **your automations evolve automatically**.
 
 ---
 
-## Pricing
+## 💬 Feedback = Learning
 
-### Free Tier
-- 50 automation runs per month
-- 1 active automation
-- Basic integrations
-- Community support
-- **Perfect for:** Testing and personal use
+Every thumbs-up, thumbs-down, or correction updates the model:
+- 👍 Increases confidence on that path  
+- 👎 Decreases it or suggests retraining  
+- ✏️ Creates a new branch in the workflow  
 
-### Pro — $39/month
-*Early adopters: $10/month lifetime lock-in*
-- Unlimited automation runs
-- 10 active automations
-- All integrations
-- Priority support
-- Performance analytics
-- Version history
-- **Perfect for:** Solo founders, small teams
-
-### Business — $99/month
-*Coming soon*
-- Everything in Pro
-- 50 active automations
-- Team collaboration
-- Custom integrations
-- 1-on-1 onboarding
-- **Perfect for:** Growing teams
-
-### Enterprise — Custom
-*Coming Q2 2025*
-- Self-hosted options
-- Advanced security & compliance
-- Dedicated support
-- Custom SLAs
-- **Perfect for:** Large organizations
+Axon’s internal agent graph continuously rewires itself — that’s how it “learns your business.”
 
 ---
 
-## Development Status
-
-### ✅ Completed (Weeks 1-2)
-- Natural language → workflow engine
-- Core automation execution
-- Basic Gmail integration
-- Action library (Search, Generate, Notify)
-
-### 🟡 In Progress (Weeks 3-4)
-- Learning feedback system
-- Rating collection interface
-- Prompt adjustment algorithm
-- Performance tracking
-
-### ⚪ Coming Next (Weeks 5-6)
-- Dashboard with improvement graphs
-- Version history
-- Onboarding flow
-- Additional integrations (Slack, Notion)
-
-### 🚀 Private Beta Launch
-- **Target:** Week 7 (approximately 3 weeks from now)
-- **Spots:** 50 early testers
-- **Benefits:** Lifetime early adopter pricing + direct feature influence
+[Incoming Message] - [Intent: Delivery Inquiry] - [Action: Reply("We use GrabFood")]
 
 ---
 
-## Our Philosophy
+## 💡 The Wow Factor
 
-### Automation Should Feel Like Training, Not Programming
+You’re not just building static chatbots.  
+You’re training a **living workflow** — one that grows smarter with every chat.
 
-Traditional automation = Writing detailed instructions for a robot that never learns
+> “Axon doesn’t just automate — it adapts.”
 
-Axon automation = Training an assistant who adapts to your preferences over time
-
-### Intelligence Over Integration
-
-We're not trying to connect to 5,000 apps on Day 1.
-
-We're focused on making the automations you create **actually smart** — learning, adapting, improving.
-
-More integrations will come, driven by what our users need most.
-
-### Transparent Learning
-
-You should always see:
-- How your automation is improving
-- What it learned from your feedback  
-- Why it made a specific decision
-
-No black box. No magic. Just clear, visible intelligence.
+That’s your **moat** over tools like Zapier, Make, or n8n.
 
 ---
 
-## Technology
+## ⚖️ Why Axon is Different
+
+| Traditional Tools | Axon |
+|-------------------|------|
+| Complicated setup | 5-minute templates |
+| Static replies | Learns from feedback |
+| English-only | English + BM + Manglish |
+| No WhatsApp | Native WhatsApp & Telegram |
+| USD-only | RM pricing with FPX & DuitNow |
+| No voice support | Understands voice notes 🎤 |
+
+---
+
+## 💬 Core Features
+
+### WhatsApp & Telegram Automation
+- Native API integration  
+- Handles FAQs, orders, and service inquiries  
+- Escalates complex cases to humans  
+
+### Learning Feedback Loop
+- Collects feedback via WhatsApp  
+- Adjusts automatically  
+- Learns your tone and phrasing  
+
+### Voice Note Understanding
+- Transcribes WhatsApp/Telegram voice notes (via Whisper)  
+- Replies intelligently with text (or voice)  
+
+### Knowledge Base Integration
+- Upload FAQ, Notion, or Google Sheet  
+- Axon learns answers automatically  
+- Improves response accuracy weekly  
+
+### Smart Escalation (Coming Soon)
+- High confidence → auto-reply  
+- Medium → reply + notify  
+- Low → “Let me check” + human notification  
+
+### Bilingual & Manglish Support
+- BM + English hybrid understanding  
+- Learns cultural slang and local phrasing  
+
+---
+
+## 💵 Pricing (in RM)
+
+### 🆓 Free Tier
+- 50 messages/month  
+- 1 automation  
+- Basic BM/EN support  
+- **For:** Testing or personal use  
+
+### 💼 Pro — RM49/month
+- Unlimited messages  
+- 5 automations  
+- Voice note support  
+- Learning dashboard  
+- FPX/DuitNow billing  
+- **For:** Small businesses  
+
+### 🏢 Business — RM149/month *(coming soon)*
+- Team access  
+- Smart escalation  
+- Custom integrations (POS, CRM)  
+- **For:** Growing teams  
+
+---
+
+## 🧭 Development Status (Malaysia MVP)
+
+### ✅ Completed
+- WhatsApp & Telegram integration  
+- Natural language templates  
+- Basic auto-responder  
+- FPX payment setup (Billplz)  
+
+### 🟡 In Progress
+- Learning feedback via WhatsApp  
+- Voice note transcription  
+- Success metrics dashboard  
+
+### ⚪ Coming Next
+- Smart escalation  
+- Bilingual templates  
+- Mobile-first dashboard  
+
+---
+
+## 💭 Our Philosophy
+
+### 🤖 Automation That Feels Human
+Axon shouldn’t sound robotic.  
+It should sound like you — friendly, local, and helpful.
+
+### 🇲🇾 Local First, Then Global
+We’re building for Malaysian businesses first —  
+where WhatsApp rules and **Manglish flows**.
+
+### 🧠 Learning Over Features
+We focus on intelligence, not endless integrations.  
+Every message handled better than the last.
+
+---
+
+## 🧰 Technology
 
 **Built with:**
-- **AI Engine:** Claude 4 (Anthropic) for natural language understanding and generation
-- **Learning System:** Few-shot learning with feedback-based prompt refinement
-- **Architecture:** Composable automation nodes (agents calling agents)
-- **Storage:** Encrypted runs, feedback, and performance data
-- **Integrations:** OAuth 2.0 for secure connection to user tools
+- **AI Engine:** Claude 4 + GPT (multilingual reasoning)  
+- **Voice:** Whisper API (transcription)  
+- **Backend:** NestJS + Prisma + PostgreSQL  
+- **Frontend:** React + Tailwind (mobile-first dashboard)  
+- **Integrations:** Twilio / MessageBird, Telegram Bot API, Billplz  
 
-**Future capabilities:**
-- Fine-tuned models per user (using your feedback data)
-- Agent marketplace (share and monetize your automations)
-- Self-hosting options (for enterprise)
-- Advanced composability (agents that combine other agents)
-
----
-
-## Getting Started
-
-### Join the Waitlist
-Private beta launching in ~3 weeks.
-
-First 50 people get:
-- ✅ Lifetime early adopter pricing ($10/mo instead of $39/mo)
-- ✅ Direct access to the founder for feature requests
-- ✅ Priority support
-- ✅ Shape the product roadmap
-
-**[Join Waitlist →](#)**
-
-### Follow Development
-Building in public. Weekly updates on progress, challenges, and learnings.
-
-- **Twitter/X:** [@YourHandle](#)
-- **Indie Hackers:** [Your Profile](#)
-- **Email Updates:** [Subscribe link](#)
-
-### Beta Testing Requirements
-We're looking for testers who:
-- ✅ Spend 5+ hours/week on repetitive tasks
-- ✅ Are frustrated with current automation tools
-- ✅ Can commit 30-60 minutes for testing
-- ✅ Will provide honest (even brutal) feedback
+**Internal Engine:**
+- Learning Workflow Graph (nodes with intent/action/feedback)  
+- Feedback-weighted edges that adapt over time  
+- React Flow visualization (Pro plan)  
 
 ---
 
-## Frequently Asked Questions
+## 🚀 Roadmap (Malaysia Pivot)
 
-### How is this different from Zapier?
-Zapier executes static workflows. Axon learns and improves. If a Zapier workflow produces wrong outputs, you manually fix it. If an Axon automation produces wrong outputs, you rate them poorly, and it automatically adjusts to do better next time.
+### Phase 1 (Now)
+- WhatsApp & Telegram integration  
+- FPX payments  
+- Template-first onboarding  
+- Feedback loop via WhatsApp  
+- Voice note support  
 
-### Do I need to know how to code?
-No. You describe what you want in plain English. Axon builds it for you. No coding, no UI clicking, no technical configuration required.
+### Phase 2 (Q1 2026)
+- Smart escalation  
+- Success dashboard  
+- Industry templates (café, e-commerce, tuition, real estate)  
 
-### What if I want to change something?
-Just tell Axon in natural language: "Make the tone more casual" or "Always include pricing in responses." It updates automatically.
-
-### How long does it take to see improvement?
-Most users see measurable improvement within 1-2 weeks. Typical trajectory: 60-70% accuracy at start → 85-95% accuracy by week 3.
-
-### What happens to my data?
-Your data is encrypted and never used to train public models. We only use your feedback to improve YOUR specific automations. Enterprise tier will offer self-hosting for complete data control.
-
-### Can I export my automations?
-Yes. You own your automations. Export as JSON, port to other platforms, or self-host (Enterprise tier).
-
-### What integrations do you support?
-Currently: Gmail, Slack, Notion, Google Docs. Adding new integrations based on user demand. Request specific integrations during beta.
-
-### Is there a free trial?
-Yes. Free tier includes 50 runs/month permanently. Pro tier has 14-day free trial (no credit card required).
+### Phase 3 (Q2 2026)
+- Collaborative learning between similar businesses  
+- Marketplace for automation templates  
+- Regional expansion (SG, ID, PH)  
 
 ---
 
-## Roadmap
-
-### Phase 1: MVP (Current)
-- [x] Natural language workflow generation
-- [x] Basic automation execution
-- [ ] Learning feedback system
-- [ ] Performance dashboard
-- [ ] Private beta launch
-
-### Phase 2: Core Platform (Q1 2025)
-- [ ] Additional integrations (Slack, Notion, Discord)
-- [ ] Team collaboration features
-- [ ] Advanced analytics
-- [ ] Mobile app
-- [ ] Public launch
-
-### Phase 3: Intelligence Layer (Q2 2025)
-- [ ] Fine-tuned models per user
-- [ ] Advanced composability (nested agents)
-- [ ] Predictive automation suggestions
-- [ ] Multi-language support
-
-### Phase 4: Ecosystem (Q3 2025)
-- [ ] Agent marketplace
-- [ ] Revenue sharing for creators
-- [ ] Self-hosting options
-- [ ] Enterprise features
-
----
-
-## Contributing
-
-We're building in public and welcome feedback!
-
-### For Beta Testers
-- Report bugs via [Issues](#)
-- Request features via [Discussions](#)
-- Share your use cases and success stories
-
-### For Developers
-Once we open-source parts of the platform:
-- Check our [Contributing Guide](#)
-- Review our [Code of Conduct](#)
-- Join our [Discord Community](#)
-
----
-
-## Contact
+## 📞 Contact
 
 **Founder:** [Your Name]  
-**Email:** hello@axon.ai  
-**Twitter/X:** [@AxonAI](#)  
-**Website:** [axon.ai](#)
+**Email:** hello@axon.my  
+**Website:** [axon.my](https://axon.my)  
+**Twitter/X:** [@AxonAI](https://twitter.com/AxonAI)
 
 ---
 
-## License
+## 🧩 The Bottom Line
 
-Proprietary (for now). We plan to open-source core components after initial launch.
+Stop replying to WhatsApp messages all day.  
+Start letting **Axon** handle them — and get smarter every week.
 
----
-
-## The Bottom Line
-
-Stop building workflows that never improve.
-
-Start training AI assistants that evolve.
-
-**Axon = Automation that learns.**
-
-**[Join the Waitlist →](#)**
-
----
-
-*Private beta launching in ~3 weeks. First 50 people get lifetime early adopter pricing.*
-
----
-
-## Acknowledgments
-
-Built with:
-- [Claude](https://www.anthropic.com) - AI engine
-- [Next.js](https://nextjs.org) - Web framework
-- [Tailwind CSS](https://tailwindcss.com) - Styling
-- [Prisma](https://www.prisma.io) - Database ORM
-
-Special thanks to our early testers and the indie hacker community for invaluable feedback.
+> **Axon = WhatsApp automation that learns.**  
+> Built for Malaysia 🇲🇾 — powered by a learning agent builder at its core.
 
 ---
 
 <p align="center">
-  <strong>Made with ❤️ by makers, for makers</strong>
+  <strong>Made with ❤️ in Malaysia by makers, for makers</strong>
 </p>
 
 <p align="center">
@@ -460,3 +285,5 @@ Special thanks to our early testers and the indie hacker community for invaluabl
   <a href="#">Follow on Twitter</a> •
   <a href="#">Documentation</a>
 </p>
+
+
