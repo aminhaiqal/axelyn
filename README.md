@@ -7,7 +7,7 @@
 
 Axon is **Malaysia's first AI automation platform** that gets smarter with every conversation.
 
-Connect your **WhatsApp Business or Telegram**, and Axon handles customer messages automatically — learning your tone, style, and business logic from feedback. Your virtual assistant that **improves every week without manual tweaking**.
+Connect your **WhatsApp Business**, and Axon handles customer messages automatically — learning your tone, style, and business logic from feedback. Your virtual assistant that **improves every week without manual tweaking**.
 
 **The secret?** Axon isn't just a chatbot. It's a **learning agent builder** — a node-based AI engine that generates workflows from plain language and **continuously evolves** based on real-world feedback.
 
@@ -103,7 +103,7 @@ When a customer messages:
 3. **Response Generation** → Crafts reply in your brand voice
 4. **Context Memory** → Remembers conversation history (200K+ tokens)
 
-All in **<1 second response time**.
+All in **<3 second response time**.
 
 ---
 
@@ -391,7 +391,6 @@ Lock in **lifetime pricing** — never increases, even when we raise prices late
 
 **What's Included:**
 ✅ Unlimited WhatsApp messages handled  
-✅ Unlimited Telegram messages  
 ✅ 5 active automations  
 ✅ Voice note transcription & response  
 ✅ Bahasa Malaysia + English + Manglish  
@@ -417,7 +416,7 @@ Lock in **lifetime pricing** — never increases, even when we raise prices late
 ---
 
 ### 🚀 Pro — RM199/month
-*Coming Q2 2025*
+*Coming Q2 2026*
 
 - Everything in Starter  
 - 15 automations  
@@ -430,7 +429,7 @@ Lock in **lifetime pricing** — never increases, even when we raise prices late
 ---
 
 ### 🏢 Business — RM499/month
-*Coming Q3 2025*
+*Coming Q3 2026*
 
 - Everything in Pro  
 - Unlimited automations  
@@ -456,30 +455,29 @@ Lock in **lifetime pricing** — never increases, even when we raise prices late
 
 ## 🛠️ Development Status (Transparency = Trust)
 
-### ✅ Production Ready (Available Now)
+### ✅ Production Ready (Q1 2026)
 - WhatsApp Business API integration (Twilio/MessageBird)
-- Telegram Bot API integration
 - Natural language understanding (BM/EN/Manglish)
 - Template-based onboarding (6 industry templates)
 - Basic auto-responder with context memory
 - FPX payment (Billplz)
 - Mobile-responsive dashboard
 
-### 🟡 Beta Testing (Available to Early Adopters)
+### 🟡 Beta Testing (Q1-Q2 2026)
 - Learning feedback loop via WhatsApp
 - Voice note transcription (Whisper API)
 - Smart escalation (confidence routing)
 - Performance dashboard (success rate, time saved, customer satisfaction)
 - Knowledge base integration (Notion, Google Docs, Sheets)
 
-### ⚪ Coming Next (Q1-Q2 2025)
+### ⚪ Coming Next (Q3 2026 or earlier)
 - Image recognition (product inquiries via photos)
 - Multi-language voice responses (reply with voice notes)
 - Advanced analytics (customer behavior patterns)
 - Collaborative learning (opt-in: learn from similar businesses)
 - Shopee/Lazada integration (auto-update stock, handle order inquiries)
 
-### 🔮 Future Vision (Q3 2025+)
+### 🔮 Future Vision (Q1 2027)
 - Agent marketplace (buy/sell automation templates)
 - API access (integrate with your own systems)
 - White-label option (agencies can rebrand Axon)
@@ -512,7 +510,7 @@ Lock in **lifetime pricing** — never increases, even when we raise prices late
 
 ### Limited Time: First 50 Businesses Only
 
-**Current Status:** 23 businesses signed up, **27 spots remaining**
+**Current Status:** 0 businesses signed up, **50 spots remaining**
 
 **What First 50 Get:**
 ✅ RM49/month FOREVER (not RM199)  
@@ -554,10 +552,10 @@ Lock in **lifetime pricing** — never increases, even when we raise prices late
 
 ### 🎯 The Vision
 
-**Short-term (2025):**  
+**Short-term (2026):**  
 Help 1,000 Malaysian SMEs save 5 hours/week each = 5,000 hours/week returned to Malaysian entrepreneurs to focus on growth, not WhatsApp.
 
-**Mid-term (2026):**  
+**Mid-term (2027):**  
 Expand to Southeast Asia (Singapore, Indonesia, Thailand, Philippines) — bringing world-class AI automation to underserved markets before MNCs do.
 
 **Long-term (2027+):**  
@@ -677,7 +675,7 @@ That's RM30,012/year in your pocket.
 
 **Certifications (in progress):**
 - PDPA compliant (Malaysia Personal Data Protection Act)
-- ISO 27001 (Information Security - Q2 2025)
+- ISO 27001 (Information Security - Q2 2026)
 - WhatsApp Business API Official Partner
 
 ---
