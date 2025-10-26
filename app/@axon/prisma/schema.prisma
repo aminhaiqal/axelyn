@@ -14,208 +14,92 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model User {
-  id            String    @id @default(cuid())
-  email         String    @unique
-  name          String?
-  passwordHash  String
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-
-  workflows     Workflow[]
-  executions    Execution[]
-  feedback      Feedback[]
+// ==================== ENUMS ====================
+enum BusinessType {
+  RETAIL
+  RESTAURANT
+  SERVICES
+  ECOMMERCE
+  EDUCATION
+  HEALTHCARE
+  OTHER
 }
 
-model Workflow {
-  id            String       @id @default(cuid())
-  name          String
-  description   String?
-  isActive      Boolean      @default(true)
-
-  user          User         @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId        String
-
-  nodes         Node[]
-  triggers      Trigger[]
-  executions    Execution[]
-  learning      WorkflowLearning[]
-  version       WorkflowVersion[]
-  trainingEvent TrainingEvent[]
-  agentMemory   AgentMemory[]
-
-  createdAt     DateTime     @default(now())
-  updatedAt     DateTime     @updatedAt
+enum MessageRole {
+  USER
+  ASSISTANT
+  SYSTEM
 }
 
-model Node {
-  id          String    @id @default(cuid())
-  name          String
-  description   String?
-
-  workflow    Workflow  @relation(fields: [workflowId], references: [id], onDelete: Cascade)
-  workflowId  String
-
-  type        String    // e.g. "http_request", "llm", "delay", "email"
-  config      Json      // configuration (dynamic settings)
-  nextNodeId  String?   // next node in flow
-  
-  label       String?
-  positionX   Float     @default(0)
-  positionY   Float     @default(0)
+enum FeedbackType {
+  THUMBS_UP
+  THUMBS_DOWN
+  EDIT
+  SKIP
 }
 
-model Trigger {
-  id          String    @id @default(cuid())
-  name          String
-  description   String?
-
-  workflow    Workflow  @relation(fields: [workflowId], references: [id], onDelete: Cascade)
-  workflowId  String
-
-  type        String    // e.g. "webhook", "schedule", "manual"
-  config      Json      // trigger config (like cron time, or webhook URL)
-  createdAt   DateTime  @default(now())
+enum IntentCategory {
+  INQUIRY
+  BOOKING
+  ORDER
+  SUPPORT
+  GREETING
+  PRICING
+  AVAILABILITY
+  LOCATION
+  OTHER
 }
 
-model Execution {
-  id          String     @id @default(cuid())
-  name          String
-  description   String?
-  
-  workflow    Workflow   @relation(fields: [workflowId], references: [id], onDelete: Cascade)
-  workflowId  String
-
-  user        User       @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId      String
-
-  status      ExecutionStatus @default(PENDING)
-  logs        Json?
-  result      Json?
-  startedAt   DateTime   @default(now())
-  finishedAt  DateTime?
-
-  feedback    Feedback[]
-  llmCall     LLMCall[]
+enum ConversationStatus {
+  ACTIVE
+  WAITING_HUMAN
+  RESOLVED
+  ARCHIVED
 }
 
-model LLMProvider {
-  id          String     @id @default(cuid())
-  name        String     @unique
-  description String?
-  models      LLMModel[] // one-to-many
-
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
+enum Language {
+  ENGLISH
+  MALAY
+  MANGLISH
 }
 
-model LLMModel {
-  id          String      @id @default(cuid())
-  name        String      // e.g., "gpt-4", "claude-v1", "qwen-7b"
-  description String?
-  
-  provider    LLMProvider @relation(fields: [providerId], references: [id], onDelete: Cascade)
-  providerId  String
-
-  call        LLMCall[]
-
-  createdAt   DateTime    @default(now())
-  updatedAt   DateTime    @updatedAt
+enum NodeType {
+  TRIGGER
+  RESPONSE
+  INTENT_DETECTION
+  KNOWLEDGE_RETRIEVAL
+  LLM_CALL
+  SENTIMENT_ANALYSIS
+  ENTITY_EXTRACTION
+  CONDITION
+  SWITCH
+  LOOP
+  WAIT
+  VARIABLE_SET
+  VARIABLE_GET
+  DATA_TRANSFORM
+  API_CALL
+  DATABASE_QUERY
+  WEBHOOK
+  CHECK_AVAILABILITY
+  CALCULATE_PRICE
+  VALIDATE_INPUT
+  ESCALATE_TO_HUMAN
+  NOTIFY_STAFF
 }
 
-model LLMCall {
-  id            String     @id @default(cuid())
-
-  workflowId    String?
-  nodeId        String?
-
-  execution     Execution? @relation(fields: [executionId], references: [id], onDelete: Cascade)
-  executionId   String?
-  llmModel      LLMModel?  @relation(fields: [llmModelId], references: [id])
-  llmModelId    String?
-
-  role          String?    // e.g. "system", "user", "assistant"
-  prompt        String
-  response      String
-  tokensUsed    Int?
-  costUsd       Float?
-  durationMs    Int?
-  metadata      Json?
-  createdAt     DateTime   @default(now())
+enum WorkflowStatus {
+  DRAFT
+  ACTIVE
+  PAUSED
+  ARCHIVED
 }
 
-model Feedback {
-  id            String     @id @default(cuid())
-
-  execution     Execution  @relation(fields: [executionId], references: [id], onDelete: Cascade)
-  executionId   String
-
-  user          User       @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId        String
-
-  rating        Int?       // e.g. 1–5 rating or -1/0/1
-  isPositive    Boolean?   
-  comment       String?    // "Be more concise" or "Missed context"
-  metadata      Json?      // store structured info (prompt diffs, response deltas, etc.)
-  sourceType    String     @default("human")
-
-  workflowLearningId String? 
-  workflowLearning   WorkflowLearning? @relation(fields: [workflowLearningId], references: [id], onDelete: Cascade)
-  
-  createdAt     DateTime   @default(now())
-}
-
-model WorkflowLearning {
-  id            String    @id @default(cuid())
-  workflow      Workflow  @relation(fields: [workflowId], references: [id], onDelete: Cascade)
-  workflowId    String
-
-  successRate   Float     @default(0.0)
-  lastImproved  DateTime?
-  totalFeedback Int       @default(0)
-  improvementNotes Json?  // internal audit of what changed
-
-  feedback      Feedback[]
-}
-
-model LearningMetric {
-  id             String    @id @default(cuid())
-  workflowId     String
-  metricName     String    // e.g. "response_quality", "latency", "error_rate"
-  metricValue    Float
-  recordedAt     DateTime  @default(now())
-}
-
-model WorkflowVersion {
-  id          String     @id @default(cuid())
-  workflow    Workflow   @relation(fields: [workflowId], references: [id], onDelete: Cascade)
-  workflowId  String
-  version     Int
-  changes     Json
-  createdAt   DateTime   @default(now())
-}
-
-model TrainingEvent {
-  id          String    @id @default(cuid())
-  workflow    Workflow  @relation(fields: [workflowId], references: [id], onDelete: Cascade)
-  workflowId  String
-  feedbackIds String[]  // which feedback entries triggered it
-  type        String    // e.g. "prompt_update", "model_selection"
-  result      Json?
-  createdAt   DateTime  @default(now())
-}
-
-model AgentMemory {
-  id          String     @id @default(cuid())
-  workflow    Workflow   @relation(fields: [workflowId], references: [id], onDelete: Cascade)
-  workflowId  String
-
-  key         String     // e.g. "last_prompt", "context_summary", "error_patterns"
-  value       Json
-  scope       String     @default("long_term") // "short_term" | "long_term"
-  expiresAt   DateTime?
-  createdAt   DateTime   @default(now())
-  updatedAt   DateTime   @updatedAt
+enum WorkflowSource {
+  AI_GENERATED
+  USER_BUILT
+  TEMPLATE
+  HYBRID
 }
 
 enum ExecutionStatus {
@@ -223,4 +107,530 @@ enum ExecutionStatus {
   RUNNING
   SUCCESS
   FAILED
+}
+
+// ==================== CORE MODELS ====================
+model Business {
+  id                  String         @id @default(cuid())
+  name                String
+  business_type       BusinessType
+  whatsapp_number     String
+
+  // Business details
+  description         String? 
+  operating_hours     Json           @default("{}") // store Dict[str, str] as JSON
+  location            String?
+  website             String?
+
+  // AI Configuration
+  brand_voice         String         @default("professional and friendly")
+  default_language    Language       @default(MANGLISH)
+  confidence_threshold Float         @default(0.7)
+
+  // Learning metrics
+  success_rate        Float          @default(0.0)
+  total_conversations Int            @default(0)
+  total_feedback      Int            @default(0)
+
+  created_at          DateTime       @default(now())
+  updated_at          DateTime       @updatedAt
+
+  // Relations
+  knowledge_bases       KnowledgeBase[]
+  customers             Customer[]
+  conversations         Conversation[]
+  workflows             Workflow[]
+  workflow_generation_requests WorkflowGenerationRequest[]
+  response_patterns     ResponsePattern[]
+  learing_events        LearningEvent[]
+  workflow_suggestions  WorkflowSuggestion[]
+  weekly_metrics        WeeklyMetrics[]
+  integrations          Integration[]
+}
+
+model KnowledgeBase {
+  id           String     @id @default(cuid())
+  business_id  String
+  business     Business   @relation(fields: [business_id], references: [id])
+
+  // Content
+  question     String
+  answer       String
+  category     String
+  keywords     Json       @default("[]") // store List[str] as JSON
+
+  // Metadata
+  language     Language   @default(MANGLISH)
+  priority     Int        @default(0)
+  usage_count  Int        @default(0)
+  success_rate Float      @default(0.0)
+
+  // Embedding
+  embedding    Json?      // store List[float] as JSON
+
+  created_at   DateTime   @default(now())
+  updated_at   DateTime   @updatedAt
+}
+
+model Customer {
+  id                  String       @id @default(cuid())
+  business_id         String
+  business            Business     @relation(fields: [business_id], references: [id])
+  whatsapp_number     String
+
+  // Profile
+  name                String?
+  preferred_language  Language     @default(MANGLISH)
+
+  // History
+  total_conversations Int          @default(0)
+  last_contacted      DateTime?
+
+  // Context
+  preferences         Json         @default("{}") // Dict[str, Any]
+  past_orders         Json         @default("[]") // List[str]
+
+  created_at          DateTime     @default(now())
+
+  // Relations
+  conversations       Conversation[]
+}
+
+model Conversation {
+  id                  String           @id @default(cuid())
+  business_id         String
+  business            Business         @relation(fields: [business_id], references: [id])
+  customer_id         String
+  customer            Customer         @relation(fields: [customer_id], references: [id])
+  workflow_id         String
+
+  // State
+  status              ConversationStatus @default(ACTIVE)
+  detected_language   Language           @default(MANGLISH)
+
+  // Context
+  current_intent      IntentCategory?
+  context_summary     String             @default("")
+
+  // Workflow execution
+  current_node_id     String?
+  workflow_variables  Json               @default("{}") // Dict[str, Any]
+
+  // Metrics
+  message_count       Int                @default(0)
+  ai_handled_count    Int                @default(0)
+  human_handoff       Boolean            @default(false)
+  avg_confidence      Float              @default(0.0)
+
+  started_at          DateTime           @default(now())
+  last_message_at     DateTime           @default(now())
+  resolved_at         DateTime?
+
+  // Relations
+  messages            Message[]
+}
+
+model Message {
+  id                  String         @id @default(cuid())
+  conversation_id     String
+  conversation        Conversation   @relation(fields: [conversation_id], references: [id])
+
+  // Content
+  role                MessageRole
+  content             String
+  detected_language   Language       @default(MANGLISH)
+
+  // AI Processing
+  detected_intent     IntentCategory?
+  confidence          Float          @default(0.0)
+
+  // Response generation
+  knowledge_used      Json           @default("[]") // List[str]
+  response_pattern_id String?
+  workflow_node_id    String?
+
+  // Feedback
+  feedback            FeedbackType?
+  feedback_note       String?
+  edited_content      String?
+
+  timestamp           DateTime       @default(now())
+}
+
+// ==================== WORKFLOW SYSTEM ====================
+model Workflow {
+  id                 String          @id @default(cuid())
+  business_id        String
+  business           Business        @relation(fields: [business_id], references: [id])
+
+  // Metadata
+  name               String
+  description        String
+  source             WorkflowSource  @default(AI_GENERATED)
+  status             WorkflowStatus  @default(DRAFT)
+  version            Int             @default(1)
+
+  // Generation context
+  user_prompt        String?
+  generation_model   String          @default("claude-sonnet-4-5")
+
+  // Trigger configuration
+  trigger_type       String          @default("whatsapp_message")
+  trigger_conditions Json            @default("{}") // Dict[str, Any]
+
+  // Visual editor state
+  canvas_data        Json            @default("{}") // Dict[str, Any]
+
+  // Performance metrics
+  execution_count    Int             @default(0)
+  success_rate       Float           @default(0.0)
+  avg_execution_time Float           @default(0.0)
+
+  // Learning
+  total_feedback     Int             @default(0)
+  thumbs_up          Int             @default(0)
+  thumbs_down        Int             @default(0)
+
+  created_at         DateTime        @default(now())
+  updated_at         DateTime        @updatedAt
+  published_at       DateTime?
+
+  // Relations
+  nodes              WorkflowNode[]
+  edges              WorkflowEdge[]
+  executions         WorkflowExecution[]
+  modifications      WorkflowModification[]
+  response_patterns  ResponsePattern[]
+  suggestions        WorkflowSuggestion[]
+  metrics            WorkflowMetrics[]
+}
+
+model WorkflowNode {
+  id                 String          @id @default(cuid())
+  workflow_id        String
+  workflow           Workflow        @relation(fields: [workflow_id], references: [id])
+
+  // Node definition
+  name               String
+  node_type          NodeType
+  description        String?
+
+  // Configuration per node
+  config             Json            @default("{}") // Dict[str, Any]
+
+  // Visual editor properties
+  position_x         Float           @default(0.0)
+  position_y         Float           @default(0.0)
+  ui_metadata        Json            @default("{}") // Dict[str, Any]
+
+  // Connections
+  next_nodes         Json            @default("[]") // List[str]
+  conditional_paths  Json            @default("{}") // Dict[str, str]
+
+  // Performance tracking
+  execution_count    Int             @default(0)
+  avg_execution_time Float           @default(0.0)
+  error_count        Int             @default(0)
+
+  // Learning signals
+  feedback_score     Float           @default(0.0)
+
+  created_at         DateTime        @default(now())
+  updated_at         DateTime        @updatedAt
+
+  response_patterns  ResponsePattern[]
+  learning_events    LearningEvent[]
+}
+
+model WorkflowEdge {
+  id                 String          @id @default(cuid())
+  workflow_id        String
+  workflow           Workflow        @relation(fields: [workflow_id], references: [id])
+
+  // Connection
+  from_node_id       String
+  to_node_id         String
+
+  // Condition and priority
+  condition          String?
+  priority           Int             @default(0)
+  label              String?
+
+  // Metrics
+  traversal_count    Int             @default(0)
+
+  created_at         DateTime        @default(now())
+}
+
+model WorkflowExecution {
+  id                 String          @id @default(cuid())
+  workflow_id        String
+  workflow           Workflow        @relation(fields: [workflow_id], references: [id])
+  conversation_id    String
+  message_id         String?
+
+  // Execution state
+  status             String          @default("running") // could be enum later
+  current_node_id    String?
+
+  // Execution path
+  nodes_executed     Json            @default("[]") // List[str]
+  execution_times    Json            @default("{}") // Dict[node_id: time_ms]
+
+  // Variables
+  variables          Json            @default("{}") // Dict[str, Any]
+
+  // Results
+  final_output       String?
+  errors             Json            @default("[]") // List[Dict]
+
+  // Performance
+  total_execution_time Float          @default(0.0)
+
+  started_at         DateTime        @default(now())
+  completed_at       DateTime?
+}
+
+model WorkflowTemplate {
+  id                   String          @id @default(cuid())
+
+  // Metadata
+  name                 String
+  description          String
+  category             String
+  business_types       Json            @default("[]") // List[BusinessType]
+
+  // Template definition
+  template_workflow    Json            // Nodes & edges JSON
+  required_integrations Json           @default("[]") // List[str]
+
+  // Preview
+  thumbnail_url        String?
+  example_conversations Json           @default("[]") // List[str]
+
+  // Usage
+  usage_count          Int             @default(0)
+  rating               Float           @default(0.0)
+
+  created_at           DateTime        @default(now())
+}
+
+// ==================== AI WORKFLOW GENERATION ====================
+model WorkflowGenerationRequest {
+  id                     String   @id @default(cuid())
+  business_id            String
+  business               Business @relation(fields: [business_id], references: [id])
+
+  // User input
+  user_prompt            String
+  business_context       Json     @default("{}") // Dict[str, Any]
+
+  // AI Generation
+  generated_workflow_id  String?  
+  generation_status      String   @default("pending") // pending, generating, completed, failed
+
+  // Anthropic API details
+  model_used             String   @default("claude-sonnet-4-5")
+  prompt_tokens          Int      @default(0)
+  completion_tokens      Int      @default(0)
+
+  // Artifacts from generation
+  claude_thinking        String?  
+  suggested_nodes        Json     @default("[]") // List[Dict[str, Any]]
+  suggested_connections  Json     @default("[]") // List[Dict[str, Any]]
+
+  created_at             DateTime @default(now())
+  completed_at           DateTime?
+}
+
+model WorkflowModification {
+  id                     String   @id @default(cuid())
+  workflow_id            String
+  workflow               Workflow @relation(fields: [workflow_id], references: [id])
+
+  // Change metadata
+  modification_type      String   // "node_added", "node_deleted", "config_changed", "edge_added"
+  user_id                String?
+  source                 String   @default("user") // user, ai_suggestion, feedback_learning
+
+  // Change details
+  before_state           Json     @default("{}") // Dict[str, Any]
+  after_state            Json     @default("{}") // Dict[str, Any]
+
+  // If this was from AI suggestion
+  ai_suggestion_reason   String?
+
+  timestamp              DateTime @default(now())
+}
+
+// ==================== LEARNING SYSTEM ====================
+model ResponsePattern {
+  id                  String          @id @default(cuid())
+  business_id         String
+  business            Business        @relation(fields: [business_id], references: [id])
+  workflow_id         String?
+  workflow            Workflow?       @relation(fields: [workflow_id], references: [id])
+  workflow_node_id    String?
+  workflow_node       WorkflowNode?   @relation(fields: [workflow_node_id], references: [id])
+
+  // Pattern definition
+  intent              IntentCategory
+  trigger_keywords    Json            @default("[]") // List[str]
+  context_required    Json            @default("[]") // List[str]
+
+  // Response template
+  response_template   String
+  example_responses   Json            @default("[]") // List[str]
+
+  // Learning metrics
+  times_used          Int             @default(0)
+  thumbs_up           Int             @default(0)
+  thumbs_down         Int             @default(0)
+  success_rate        Float           @default(0.0)
+  confidence_score    Float           @default(0.5)
+
+  // Version control
+  parent_pattern_id   String?
+  version             Int             @default(1)
+
+  created_at          DateTime        @default(now())
+  last_used           DateTime?
+
+  learning_events    LearningEvent[]
+}
+
+model LearningEvent {
+  id                     String          @id @default(cuid())
+  business_id            String
+  business               Business        @relation(fields: [business_id], references: [id])
+
+  // Context
+  message_id             String
+  conversation_id        String
+  workflow_id            String
+  workflow_node_id       String?
+  workflow_node          WorkflowNode?   @relation(fields: [workflow_node_id], references: [id])
+  response_pattern_id    String?
+  response_pattern       ResponsePattern? @relation(fields: [response_pattern_id], references: [id])
+
+  // Feedback
+  feedback_type          FeedbackType
+  original_response      String
+  edited_response        String?
+
+  // Impact on workflow
+  workflow_modification_id String?
+  confidence_change      Float           @default(0.0)
+  new_pattern_created    Boolean         @default(false)
+  pattern_updated        Boolean         @default(false)
+  node_config_updated    Boolean         @default(false)
+
+  timestamp             DateTime        @default(now())
+}
+
+model WorkflowSuggestion {
+  id                     String          @id @default(cuid())
+  workflow_id            String
+  workflow               Workflow        @relation(fields: [workflow_id], references: [id])
+  business_id            String
+  business               Business        @relation(fields: [business_id], references: [id])
+
+  // Suggestion
+  suggestion_type        String          // "add_node", "modify_config", "add_edge", "optimize"
+  title                  String
+  description            String
+  reasoning               String
+
+  // Proposed changes
+  proposed_changes       Json            @default("{}") // Dict[str, Any]
+
+  // Supporting evidence
+  based_on_feedback_count Int            @default(0)
+  based_on_error_pattern  String?
+  expected_improvement    Float          @default(0.0)
+
+  // Status
+  status                 String          @default("pending") // pending, accepted, rejected, applied
+  applied_at             DateTime?
+
+  created_at             DateTime        @default(now())
+}
+
+// ==================== ANALYTICS ====================
+model WeeklyMetrics {
+  id                   String     @id @default(cuid())
+  business_id          String
+  business             Business   @relation(fields: [business_id], references: [id])
+  week_start           DateTime
+
+  // Volume
+  total_conversations  Int        @default(0)
+  total_messages       Int        @default(0)
+  unique_customers     Int        @default(0)
+
+  // Performance
+  success_rate         Float      @default(0.0)
+  avg_confidence       Float      @default(0.0)
+  human_handoffs       Int        @default(0)
+
+  // Feedback
+  thumbs_up            Int        @default(0)
+  thumbs_down          Int        @default(0)
+  edits                Int        @default(0)
+
+  // Learning
+  new_patterns_learned Int        @default(0)
+  patterns_improved    Int        @default(0)
+  workflows_modified   Int        @default(0)
+
+  // Top intents
+  top_intents          Json       @default("{}") // Dict[str, int]
+}
+
+model WorkflowMetrics {
+  id                   String     @id @default(cuid())
+  workflow_id          String
+  workflow             Workflow   @relation(fields: [workflow_id], references: [id])
+  time_period          String     // "daily", "weekly", "monthly"
+  period_start         DateTime
+
+  // Execution stats
+  total_executions     Int        @default(0)
+  successful_executions Int       @default(0)
+  failed_executions    Int        @default(0)
+  avg_execution_time   Float      @default(0.0)
+
+  // User satisfaction
+  thumbs_up            Int        @default(0)
+  thumbs_down          Int        @default(0)
+  satisfaction_rate    Float      @default(0.0)
+
+  // Bottlenecks
+  slowest_nodes        Json       @default("[]") // List[Dict[str, Any]] [{node_id, avg_time}, ...]
+  error_prone_nodes    Json       @default("[]") // List[Dict[str, Any]] [{node_id, error_count}, ...]
+
+  // Learning progress
+  improvements_applied Int        @default(0)
+}
+
+model Integration {
+  id                   String     @id @default(cuid())
+  business_id          String
+  business             Business   @relation(fields: [business_id], references: [id])
+
+  // Integration details
+  name                 String
+  type                 String     // "api", "database", "payment", "calendar", etc.
+
+  // Configuration
+  config               Json       @default("{}") // Dict[str, Any]
+
+  // Usage
+  used_in_workflows    Json       @default("[]") // List[str]
+
+  // Status
+  status               String     @default("active") // active, error, disabled
+  last_tested          DateTime?
+
+  created_at           DateTime   @default(now())
 }
