@@ -15,6 +15,23 @@ datasource db {
 }
 
 // ==================== ENUMS ====================
+enum PlatformRole {
+  ADMIN
+  BUSINESS_OWNER
+  STAFF
+}
+
+enum BusinessRole {
+  OWNER
+  STAFF
+}
+
+enum BusinessStatus {
+  PENDING_VERIFICATION
+  ACTIVE
+  SUSPENDED
+}
+
 enum BusinessType {
   RETAIL
   RESTAURANT
@@ -110,11 +127,46 @@ enum ExecutionStatus {
 }
 
 // ==================== CORE MODELS ====================
+model User {
+  id               String    @id // Supabase Auth UUID
+  email            String    @unique
+  full_name        String?
+  avatar_url       String?
+  role             PlatformRole @default(BUSINESS_OWNER) // Platform-level (not per-business)
+  created_at       DateTime  @default(now())
+  updated_at       DateTime  @updatedAt
+
+  // Relations
+  memberships      BusinessMember[]
+  created_businesses Business[] @relation("BusinessCreatedBy")
+
+  @@index([role])
+}
+
+model BusinessMember {
+  id            String           @id @default(cuid())
+  user_id       String
+  business_id   String
+  role          BusinessRole     @default(STAFF)
+  joined_at     DateTime         @default(now())
+
+  user          User             @relation(fields: [user_id], references: [id])
+  business      Business         @relation(fields: [business_id], references: [id])
+
+  @@unique([user_id, business_id])
+  @@index([business_id])
+}
+
 model Business {
   id                  String         @id @default(cuid())
   name                String
   business_type       BusinessType
   whatsapp_number     String
+  phone_normalized    String @unique
+  whatsapp_verified   Boolean @default(false)
+  status              BusinessStatus @default(PENDING_VERIFICATION)
+  created_by          User?          @relation("BusinessCreatedBy", fields: [created_by_id], references: [id])
+  created_by_id       String?
 
   // Business details
   description         String? 
@@ -136,6 +188,7 @@ model Business {
   updated_at          DateTime       @updatedAt
 
   // Relations
+  members               BusinessMember[]
   knowledge_bases       KnowledgeBase[]
   customers             Customer[]
   conversations         Conversation[]
