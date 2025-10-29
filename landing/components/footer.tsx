@@ -1,28 +1,34 @@
 export function Footer() {
   return (
-    <footer className="border-t border-border bg-muted/30 py-8">
-      <div className="mx-auto max-w-7xl px-6 lg:px-8">
-        <div className="flex flex-col items-center justify-between gap-4 sm:flex-row">
+    <footer className="py-12 px-4 sm:px-6 lg:px-8 border-t border-border">
+      <div className="container mx-auto max-w-6xl">
+        <div className="flex flex-col md:flex-row items-center justify-between gap-6">
           <div className="flex items-center gap-2">
-            <div className="flex h-7 w-7 items-center justify-center rounded-lg bg-primary">
-              <span className="text-sm font-bold text-primary-foreground">A</span>
+            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
+              <span className="text-primary-foreground font-bold text-lg">A</span>
             </div>
-            <span className="text-base font-semibold text-foreground">Axon</span>
+            <div>
+              <div className="text-lg font-semibold text-foreground">Axelyn</div>
+              <div className="text-sm text-muted-foreground">Where Infrastructure Meets Intelligence.</div>
+            </div>
           </div>
-
-          <p className="text-center text-sm text-muted-foreground">© 2025 Axon. Building intelligent automation.</p>
-
-          <div className="flex gap-6 text-sm text-muted-foreground">
-            <a href="#" className="transition-colors hover:text-foreground">
+          <nav className="flex items-center gap-8">
+            <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+              About
+            </a>
+            <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
               Privacy
             </a>
-            <a href="#" className="transition-colors hover:text-foreground">
+            <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
               Terms
             </a>
-            <a href="#" className="transition-colors hover:text-foreground">
+            <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
               Contact
             </a>
-          </div>
+          </nav>
+        </div>
+        <div className="mt-8 pt-8 border-t border-border text-center text-sm text-muted-foreground">
+          © 2025 Axelyn. All rights reserved.
         </div>
       </div>
     </footer>

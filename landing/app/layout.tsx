@@ -1,15 +1,14 @@
 import type React from "react"
 import type { Metadata } from "next"
-import { Geist, Geist_Mono } from "next/font/google"
+import { Inter } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
 
-const _geist = Geist({ subsets: ["latin"] })
-const _geistMono = Geist_Mono({ subsets: ["latin"] })
+const inter = Inter({ subsets: ["latin"] })
 
 export const metadata: Metadata = {
-  title: "Axon - AI Automation That Actually Learns",
-  description: "Build smarter automations with AI that learns from your feedback and improves over time.",
+  title: "Axelyn — Intelligent WhatsApp Auto-Reply Assistant",
+  description: "Smart, human-like responses. Always accurate. Always under your control.",
   generator: "v0.app",
 }
 
@@ -19,7 +18,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en" className="dark">
+    <html lang="en">
       <body className={`font-sans antialiased`}>
         {children}
         <Analytics />

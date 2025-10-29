@@ -1,25 +1,23 @@
-import { Header } from "@/components/header"
 import { HeroSection } from "@/components/hero-section"
-import { FeaturesSection } from "@/components/features-section"
-import { ComparisonSection } from "@/components/comparison-section"
-import { TimelineSection } from "@/components/timeline-section"
-import { WaitlistSection } from "@/components/waitlist-section"
+import { AboutSection } from "@/components/about-section"
+import { TrustSection } from "@/components/trust-section"
+import { ResultSection } from "@/components/result-section"
+import { VisionSection } from "@/components/vision-section"
+import { CtaSection } from "@/components/cta-section"
 import { Footer } from "@/components/footer"
-import { NarrativeSection } from "@/components/narrative-section"
+import { Header } from "@/components/header"
 
 export default function Home() {
   return (
-    <>
+    <main className="min-h-screen">
       <Header />
-      <main className="min-h-screen">
-        <HeroSection />
-        <FeaturesSection />
-        <ComparisonSection />
-        <NarrativeSection />
-        <TimelineSection />
-        <WaitlistSection />
-      </main>
+      <HeroSection />
+      <AboutSection />
+      <TrustSection />
+      <ResultSection />
+      <VisionSection />
+      <CtaSection />
       <Footer />
-    </>
+    </main>
   )
 }
