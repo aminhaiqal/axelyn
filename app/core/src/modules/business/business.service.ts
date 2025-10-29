@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../../common/prisma.service';
 import { CreateBusinessDto, UpdateBusinessDto } from './dto';
-import { normalizePhoneNumber } from '@utils/normalize-phone';
+import { normalizePhoneNumber } from '../../utils/normalize-phone';
 
 export enum BusinessStatus {
   PENDING_VERIFICATION = 'PENDING_VERIFICATION',
